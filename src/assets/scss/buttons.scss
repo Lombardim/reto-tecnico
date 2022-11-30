@@ -1,0 +1,54 @@
+@import 'colors';
+@import 'fonts';
+
+// buttons
+.basic-button {
+  font-family: montserratBold, serif;
+  min-width: fit-content;
+  height: 54px;
+  padding: 0 1.5rem;
+  line-height: 34px !important;
+  text-align: center;
+  border: 2px solid !important;
+  background: transparent;
+  border-radius: 30px !important;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.btn-primary {
+  @extend .basic-button;
+  color: #FFFFFF !important;
+  background-color: $primary-text;
+  border-color: $primary-text !important;
+}
+
+.btn-primary-small {
+  @extend .btn-primary;
+  height: 34px;
+}
+
+.btn-disabled-small {
+  @extend .btn-primary-small;
+  background-color: $disabled-color;
+  border-color: $disabled-color !important;
+  color: $disabled-text !important;
+  cursor: not-allowed;
+}
+
+.btn-primary-outlined {
+  @extend .basic-button;
+  color: $primary-text !important;
+  border-color: $primary-text !important;
+}
+
+.btn-secondary {
+  @extend .basic-button;
+  font-size: 18px;
+  color: #FFFFFF !important;
+  background-color: $secondary-text;
+  border-color: $secondary-text !important;
+}

@@ -1,0 +1,13 @@
+@import 'colors';
+@import 'fonts';
+
+.icon-size {
+  cursor: pointer;
+  position: absolute;
+  right: .65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $primary-text;
+  height: 32px;
+  width: 32px;
+}

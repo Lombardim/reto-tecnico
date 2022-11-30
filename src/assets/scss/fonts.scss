@@ -1,0 +1,62 @@
+// Montserrat
+@font-face {
+  font-family: montserratRegular;
+  src: url("../fonts/Montserrat-Regular.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: montserratMedium;
+  src: url("../fonts/Montserrat-Medium.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: montserratBold;
+  src: url("../fonts/Montserrat-Bold.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: montserratSemiBold;
+  src: url("../fonts/Montserrat-SemiBold.ttf") format("opentype");
+}
+
+.main-header-title{
+  color: $primary-text;
+  font-family: montserratSemiBold, brandingBold, serif;
+  font-size: 48px;
+}
+.secondary-title{
+  color: $primary-text;
+  font-family: montserratSemiBold, brandingBold, serif;
+  font-size: 32px;
+}
+.small-header-title{
+  color: $primary-text;
+  font-family: montserratRegular, serif;
+  font-size: 28px;
+  line-height: 48px;
+}
+.big-sized-text {
+  color: $primary-text;
+  font-family: montserratSemiBold, brandingBold, serif;
+  font-size: 32px;
+}
+.medium-sized-text {
+  color: $primary-text;
+  font-family: montserratSemiBold, brandingBold, serif;
+  font-size: 24px;
+}
+.regular-sized-text {
+  color: $primary-text;
+  font-family: montserratRegular, serif;
+  font-size: 24px;
+}
+.medium-small-sized-text {
+  color: $primary-text;
+  font-family: montserratSemiBold, brandingBold, serif;
+  font-size: 22px;
+}
+.regular-small-sized-text {
+  color: $primary-text;
+  font-family: montserratRegular, serif;
+  font-size: 18px;
+}

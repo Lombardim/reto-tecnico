@@ -1,0 +1,23 @@
+<div class="login-form-container">
+  <h1 class="main-header-title">INICIAR SESIÓN</h1>
+  <form class="input-form" [formGroup]="loginForm" autocomplete="off">
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput type="text" formControlName="email" (keyup.enter)="login()"/>
+    </mat-form-field>
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="showPass ? 'text' : 'password'" formControlName="password" (keyup.enter)="login()"/>
+      <mat-icon class="icon-size" (click)="changePassMode()" [svgIcon]="showPass ? 'visibility-on' : 'visibility-off'"></mat-icon>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button type="submit" mat-button class="btn btn-primary" (click)="login()">
+        INICIAR SESIÓN
+      </button>
+      <button type="button" mat-button class="btn btn-secondary" (click)="register()">
+        REGISTRARSE
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,48 @@
+@import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/buttons';
+@import '../../../../assets/scss/display';
+
+.dashboard-container {
+  display: grid;
+  background-color: $raised-background;
+  height: 95%;
+  width: 98%;
+  border-radius: 20px;
+  padding: 2rem 2.75rem;
+  grid-template-rows: max-content auto;
+  gap: .5rem;
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .dashboard-body {
+    display: grid;
+    gap: 1rem;
+    grid-template-rows: auto max-content;
+
+    .extra-information-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .table-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    .dashboard-buttons-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+  }
+  .admin-view {
+    grid-template-rows: max-content auto max-content;
+  }
+}

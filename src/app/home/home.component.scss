@@ -1,0 +1,16 @@
+.main-container {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 11.5vh 88.5vh;
+}
+
+@media (min-width: 1024px) and (max-width: 1365px) {
+  .main-container  {
+    grid-template-rows: 10vh 90vh;
+  }
+}
+@media (min-width: 1600px) {
+  .main-container {
+    grid-template-rows: 6.6vh 93.4vh;
+  }
+}

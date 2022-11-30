@@ -1,0 +1,16 @@
+<nav class="header-body">
+  <span class="text-container">
+    ¡Bienvenido {{username}}!
+  </span>
+  <div class="navigation-container">
+    <div [routerLink]="'dashboard'" [routerLinkActive]="'selected-screen'" >
+      <mat-icon class="header-icon-size" svgIcon="dashboard"></mat-icon>
+    </div>
+    <div [routerLink]="'game-list'" [routerLinkActive]="'selected-screen'">
+      <mat-icon class="header-icon-size" svgIcon="home"></mat-icon>
+    </div>
+    <div (click)="logOut()">
+      <mat-icon class="header-icon-size" svgIcon="log-out"></mat-icon>
+    </div>
+  </div>
+</nav>

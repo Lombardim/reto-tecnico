@@ -1,0 +1,19 @@
+.dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  height: 170px;
+  justify-content: center;
+  gap: 1rem;
+
+  .dialog-description{
+    line-height: 1;
+  }
+  .dialog-form {
+    width: 100%;
+  }
+}

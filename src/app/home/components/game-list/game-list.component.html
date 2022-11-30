@@ -1,0 +1,53 @@
+<div class="game-list-body">
+  <div class="game-list-container">
+    <h1 class="main-header-title"> LISTA DE JUEGOS </h1>
+
+    <div class="games-list">
+      <div *ngFor="let game of filteredGamesList ? filteredGamesList : gamesList" class="game-container" [routerLink]="'/home/game-preview/'+game.id">
+        <img class="game-image" [src]="game.image" alt="game image">
+        <div class="game-information">
+          <span class="medium-small-sized-text"> {{ game.name }}</span>
+          <span class="regular-small-sized-text"> {{ game.year }}</span>
+          <span class="regular-small-sized-text"> {{ game.director }}</span>
+          <span class="regular-small-sized-text"> {{ game.protagonist }}</span>
+          <span class="regular-small-sized-text"> {{ game.producer }}</span>
+          <span class="regular-small-sized-text"> {{ game.platform }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-container">
+    <form class="input-form" [formGroup]="filterForm" autocomplete="off">
+      <div class="filter-input-container">
+        <input type="text" class="input-control" id="filter" formControlName="filter" placeholder="Buscar..." (keyup.enter)="filter()"/>
+        <mat-icon class="icon-size" (click)="filter()" svgIcon="search">
+        </mat-icon>
+      </div>
+
+      <div class="filter-body">
+        <div class="filter-body-header">
+          <span class="medium-sized-text">
+            Filtrar
+          </span>
+          <mat-icon svgIcon="filter" class="filter-icon"></mat-icon>
+        </div>
+        <mat-radio-group class="filter-body-container" formControlName="filterSelector">
+          <mat-radio-button value="title" labelPosition="after">Título del juego</mat-radio-button>
+          <mat-radio-button value="director" labelPosition="after">Director de juego</mat-radio-button>
+          <mat-radio-button value="protagonist" labelPosition="after">Protagonistas del juego</mat-radio-button>
+          <mat-radio-button value="producer" labelPosition="after">Productor y/o marca del juego</mat-radio-button>
+          <mat-radio-button value="year" labelPosition="after">Fecha de lanzamiento</mat-radio-button>
+        </mat-radio-group>
+        <div class="filter-button-container">
+          <button type="button" mat-button class="btn btn-primary" (click)="filter()">
+            FILTRAR
+          </button>
+          <button type="button" mat-button class="btn btn-secondary" (click)="clearFilters()">
+            LIMPIAR FILTROS
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

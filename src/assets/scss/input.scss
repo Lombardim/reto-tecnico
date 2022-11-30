@@ -1,0 +1,87 @@
+@import "colors";
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  ::ng-deep {
+    .input-field {
+      position: relative;
+
+      .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+      .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+      .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+        border-color: white;
+      }
+      .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+      .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+      .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+        border-color: $error;
+      }
+      .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+        color: $secondary-text;
+      }
+      .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
+        color: $error !important;
+      }
+      .mat-mdc-form-field-input-control{
+        color: white;
+      }
+      .mdc-text-field--invalid .ng-invalid {
+        color: $error !important;
+      }
+      .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start,
+      .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
+      .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
+        border-width: 2px !important;
+      }
+      .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+        color: $primary-text;
+        opacity: 0.5 !important;
+      }
+      .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+        color: white !important;
+        opacity: 1;
+      }
+    }
+  }
+
+  .input-row-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+  }
+  .input-label {
+    color: $secondary-text;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: montserratBold, serif;
+  }
+  .input-control {
+    outline: 0;
+    border-radius: .75rem;
+    background-color: transparent;
+    border: 2px solid $primary-text;
+    font-size: 16px;
+    line-height: 2;
+    color: $primary-text;
+    padding: .5rem 1rem;
+    width: 100%;
+
+    &::placeholder {
+      color: #113D8BCC;
+    }
+  }
+
+  .password-input{
+    position: relative;
+  }
+}

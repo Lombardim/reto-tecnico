@@ -1,0 +1,44 @@
+@import '../../../../assets/scss/colors';
+
+.header-body {
+  display: grid;
+  grid-template-columns: auto max-content;
+  width: 100%;
+  height: 100%;
+  background-color: $primary-text;
+  color: white;
+  align-items: center;
+  padding: 0 1.5rem;
+
+  .text-container {
+    font-size: 32px;
+    font-family: montserratRegular, serif;
+  }
+
+  .navigation-container {
+    display: grid;
+    grid-template-columns: repeat(3, 40px);
+    gap: .5rem;
+
+    .selected-screen {
+      position: relative;
+      color: $secondary-text;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: -14%;
+        top: -14%;
+        width: 37px;
+        height: 37px;
+        border-radius: 50%;
+        background-color: #D0A6163F;
+        border: 2px solid $secondary-text;
+      }
+    }
+    .header-icon-size {
+      height: 30px;
+      width: 30px;
+    }
+  }
+}
