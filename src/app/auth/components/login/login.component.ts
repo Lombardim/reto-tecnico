@@ -16,7 +16,7 @@ export class LoginComponent {
     'email': 'Correo electrónico',
     'password': 'Contraseña'
   }
-  public showPass = false;
+  public passwordVisibility = false;
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -25,12 +25,12 @@ export class LoginComponent {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6)
-    ]),
+    ])
   });
 
   constructor(
     private _router: Router,
-    private toastr: ToastrService,
+    private alertService: ToastrService,
     private _authService: AuthService
   ) {
   }
@@ -42,26 +42,21 @@ export class LoginComponent {
       for (const key in controls) {
         if(this.loginForm.get(key)?.invalid) invalid.push(key.toString());
       }
-      this.toastr.error('Aún hay campos con errores: ' + this.formNames[invalid[0]], 'REGISTRO');
+      this.alertService.error('Aún hay campos con errores: ' + this.formNames[invalid[0]], 'REGISTRO');
       console.error('Hay campos con errores');
     }else{
       try {
         await this._authService.login(this.loginForm.get('email')?.value ?? '', this.loginForm.get('password')?.value ?? '');
-        this.toastr.success('Bienvenido', 'INICIO DE SESIÓN');
-        await this._router.navigateByUrl('/home/game-list');
+        this.alertService.success('Bienvenido', 'INICIO DE SESIÓN');
+        await this._router.navigateByUrl('/pantalla-principal/game-list');
       }catch (e) {
         console.error(e);
-        this.toastr.error('' + e, 'INICIO DE SESIÓN');
+        this.alertService.error('' + e, 'INICIO DE SESIÓN');
       }
     }
   }
 
   public async register() {
-    await this._router.navigateByUrl('/auth/register');
-  }
-
-  //change visibility of pass field
-  changePassMode() {
-    this.showPass = !this.showPass;
+    await this._router.navigateByUrl('/autenticacion/registro');
   }
 }

@@ -1,16 +1,25 @@
 <nav class="header-body">
   <span class="text-container">
-    ¡Bienvenido {{username}}!
+    CATÁLOGO DE VIDEOJUEGOS
   </span>
   <div class="navigation-container">
-    <div [routerLink]="'dashboard'" [routerLinkActive]="'selected-screen'" >
-      <mat-icon class="header-icon-size" svgIcon="dashboard"></mat-icon>
+    <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+      <mat-icon class="header-icon-size" svgIcon="menu"></mat-icon>
     </div>
-    <div [routerLink]="'game-list'" [routerLinkActive]="'selected-screen'">
-      <mat-icon class="header-icon-size" svgIcon="home"></mat-icon>
-    </div>
-    <div (click)="logOut()">
-      <mat-icon class="header-icon-size" svgIcon="log-out"></mat-icon>
-    </div>
+    <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
+      <span class="secondary-title title-container">CONFIGURACIÓN</span>
+      <button mat-menu-item [routerLink]="'dashboard'" [routerLinkActive]="'selected-screen'">
+        <mat-icon class="menu-icon-size" svgIcon="dashboard"></mat-icon>
+        <span class="medium-smaller-sized-text">DASHBOARD</span>
+      </button>
+      <button mat-menu-item [routerLink]="'lista-de-juegos'" [routerLinkActive]="'selected-screen'">
+        <mat-icon class="menu-icon-size" svgIcon="home"></mat-icon>
+        <span class="medium-smaller-sized-text">PANTALLA PRINCIPAL</span>
+      </button>
+      <button mat-menu-item (click)="logOut()">
+        <mat-icon class="menu-icon-size" svgIcon="log-out"></mat-icon>
+        <span class="medium-smaller-sized-text">CERRAR SESIÓN</span>
+      </button>
+    </mat-menu>
   </div>
 </nav>

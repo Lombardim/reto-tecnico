@@ -14,33 +14,34 @@ export class AuthGuardGuard implements CanActivate {
 
   public async canActivate(route: ActivatedRouteSnapshot) {
     const {statusToEnter} = route.data;
-    if(statusToEnter === 'logged') {
-      const userId = localStorage.getItem('userId');
-      if(!userId) {
-        await this.router.navigateByUrl('/auth/login');
-      }else{
-        try {
-          let user: UserInterface | undefined = await this.userService.getUserById(parseInt(userId));
-          this.userService.setLogged(user);
-          return true;
-        }catch (e) {
-          console.error(e);
-        }
-      }
-    }else{
-      const userId = localStorage.getItem('userId');
-      if(!userId) {
-        return true;
-      }else{
-        try {
-          let user: UserInterface | undefined = await this.userService.getUserById(parseInt(userId));
-          this.userService.setLogged(user);
-          await this.router.navigateByUrl('/home/games-list');
-        }catch (e) {
-          console.error(e);
-        }
-      }
-    }
-    return false;
+    return true;
+    // if(statusToEnter === 'logged') {
+    //   const userId = localStorage.getItem('userId');
+    //   if(!userId) {
+    //     await this.router.navigateByUrl('/auth/login');
+    //   }else{
+    //     try {
+    //       let user: UserInterface | undefined = await this.userService.getUserById(parseInt(userId));
+    //       this.userService.setLogged(user);
+    //       return true;
+    //     }catch (e) {
+    //       console.error(e);
+    //     }
+    //   }
+    // }else{
+    //   const userId = localStorage.getItem('userId');
+    //   if(!userId) {
+    //     return true;
+    //   }else{
+    //     try {
+    //       let user: UserInterface | undefined = await this.userService.getUserById(parseInt(userId));
+    //       this.userService.setLogged(user);
+    //       await this.router.navigateByUrl('/home/games-list');
+    //     }catch (e) {
+    //       console.error(e);
+    //     }
+    //   }
+    // }
+    // return false;
   }
 }

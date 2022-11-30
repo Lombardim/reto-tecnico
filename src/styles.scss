@@ -25,3 +25,27 @@
   align-items: center;
   justify-content: center;
 }
+
+.mdc-menu-surface {
+  padding: 1rem 0 !important;
+  max-width: max-content !important;
+  background: $raised-background;
+  border: .1rem solid $secondary-text;
+  border-radius: .8rem !important;
+
+  .title-container {
+    padding: 0 1.5rem 1rem;
+  }
+  .menu-icon-size {
+    color: $secondary-text;
+    height: 30px;
+    width: 30px;
+    transition: .5s;
+  }
+  .selected-screen {
+    border-top: 1px solid $secondary-text;
+    border-bottom: 1px solid $secondary-text;
+    background: #F37E5114;
+  }
+}
+

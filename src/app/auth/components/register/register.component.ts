@@ -38,6 +38,12 @@ export class RegisterComponent {
       Validators.max(99),
       Validators.pattern(numberPattern)
     ]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
+      Validators.pattern(numberPattern)
+    ]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern(emailPattern)
@@ -52,7 +58,7 @@ export class RegisterComponent {
   constructor(
     private _router: Router,
     private _authService: AuthService,
-    private toastr: ToastrService
+    private alertService: ToastrService
   ) { }
 
   public async register() {
@@ -62,7 +68,7 @@ export class RegisterComponent {
       for (const key in controls) {
         if(this.registerForm.get(key)?.invalid) invalid.push(key.toString());
       }
-      this.toastr.error('Aún hay campos con errores: ' + this.formNames[invalid[0]], 'REGISTRO');
+      this.alertService.error('Aún hay campos con errores: ' + this.formNames[invalid[0]], 'REGISTRO');
       return;
     }
     try {
@@ -78,16 +84,16 @@ export class RegisterComponent {
         password: this.registerForm.get('password')?.value ?? '',
         phone: this.registerForm.get('phone')?.value ?? '',
       };
-      await this._authService.register(user);
-      this.toastr.success('Cuenta registrada exitosamente', 'REGISTRO');
+      await this._authService.addUser(user);
+      this.alertService.success('Cuenta registrada exitosamente', 'REGISTRO');
       await this.goBack();
     }catch (e) {
       console.error(e);
-      this.toastr.error('Ocurrió un error: ' + e, 'REGISTRO');
+      this.alertService.error('Ocurrió un error: ' + e, 'REGISTRO');
     }
   }
 
   public async goBack() {
-    await this._router.navigateByUrl('/auth/login');
+    await this._router.navigateByUrl('/autenticacion/inicio-sesion');
   }
 }

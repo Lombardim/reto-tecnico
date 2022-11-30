@@ -29,26 +29,25 @@ export class UserService {
     this._logged = user;
   }
 
-  async getAllUsers() {
+  async getAllUsers(): Promise<UserInterface[]> {
     try {
-      await lastValueFrom(
+      return await lastValueFrom(
         this.http.get<UserInterface[]>(`${environment.apiURL}/user`)
       );
     }catch (e) {
       console.error(e);
-      this.alertService.error('Ocurrió un error obteniendo los usuarios', 'OBTENER USUARIOS');
+      throw 'Ocurrió un error inesperado';
     }
   }
 
   async getUserById(userId: number): Promise<UserInterface> {
     try {
-      const response = await lastValueFrom(
+      return await lastValueFrom(
         this.http.get<UserInterface>(`${environment.apiURL}/user/${userId}`)
       );
-      return response;
     }catch (e) {
       console.error(e);
-      throw 'Ocurrió un error obteniendo los usuarios';
+      throw 'Ocurrió un error obteniendo el usuario';
     }
   }
 }

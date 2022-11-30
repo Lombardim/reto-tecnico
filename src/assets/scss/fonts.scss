@@ -20,40 +20,45 @@
 }
 
 .main-header-title{
-  color: $primary-text;
+  color: $secondary-text;
   font-family: montserratSemiBold, brandingBold, serif;
   font-size: 48px;
 }
 .secondary-title{
-  color: $primary-text;
+  color: $secondary-text;
   font-family: montserratSemiBold, brandingBold, serif;
   font-size: 32px;
 }
 .small-header-title{
-  color: $primary-text;
+  color: $secondary-text;
   font-family: montserratRegular, serif;
   font-size: 28px;
   line-height: 48px;
 }
 .big-sized-text {
-  color: $primary-text;
+  color: $secondary-text;
   font-family: montserratSemiBold, brandingBold, serif;
   font-size: 32px;
 }
 .medium-sized-text {
-  color: $primary-text;
+  color: $secondary-text;
   font-family: montserratSemiBold, brandingBold, serif;
   font-size: 24px;
 }
 .regular-sized-text {
-  color: $primary-text;
+  color: $secondary-text;
   font-family: montserratRegular, serif;
   font-size: 24px;
 }
 .medium-small-sized-text {
-  color: $primary-text;
+  color: $secondary-text;
   font-family: montserratSemiBold, brandingBold, serif;
   font-size: 22px;
+}
+.medium-smaller-sized-text {
+  color: $primary-text;
+  font-family: montserratSemiBold, brandingBold, serif;
+  font-size: 18px;
 }
 .regular-small-sized-text {
   color: $primary-text;

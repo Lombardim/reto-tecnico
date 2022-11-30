@@ -20,16 +20,19 @@ export class AuthService {
     return this.userService.userId;
   }
 
-  public initUsersEmails() {
-    const users = localStorage.getItem('registeredEmails');
-    if(users) {
-      // this.userService.users = JSON.parse(users);
-    }else{
-      // localStorage.setItem('users', JSON.stringify(this.userService.users));
+  public async initUsersEmails() {
+    const users = this.userService.registeredEmails;
+    if(users.length === 0) {
+      try {
+        const users: UserInterface[] = await this.userService.getAllUsers();
+        this.userService.registeredEmails = users.map((user) => user.email);
+      }catch (e) {
+        this.alertService.error('' + e, 'INICIALIZAR USUARIOS');
+      }
     }
   }
 
-  public async register(user: UserInterface) {
+  public async addUser(user: UserInterface) {
     if(this.userService.registeredEmails.includes(user.email)) {
       console.error('El email ya está registrado en el sistema');
       this.alertService.error('El email ya está registrado en el sistema', 'REGISTRO');

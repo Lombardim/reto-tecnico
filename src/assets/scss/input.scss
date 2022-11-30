@@ -47,6 +47,19 @@
         opacity: 1;
       }
     }
+
+    .filter-body-container {
+      .mdc-form-field label {
+        color: white;
+        cursor: pointer;
+      }
+      .mdc-radio__outer-circle {
+        border-color: $primary-text !important;
+      }
+      .mdc-radio__inner-circle {
+        border-color: $secondary-text !important;
+      }
+    }
   }
 
   .input-row-container {

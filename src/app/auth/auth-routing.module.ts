@@ -10,16 +10,16 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
-        path: 'login',
+        path: 'inicio-sesion',
         component: LoginComponent
       },
       {
-        path: 'register',
+        path: 'registro',
         component: RegisterComponent
       },
       {
         path: '**',
-        redirectTo: 'login',
+        redirectTo: 'inicio-sesion',
         pathMatch: 'full'
       }
     ]

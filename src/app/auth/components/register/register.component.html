@@ -1,53 +1,56 @@
 <div class="register-form-container">
-  <h1 class="main-header-title">REGISTRARSE</h1>
+  <h1 class="main-header-title">REGISTRO CLIENTES</h1>
   <form class="input-form form-margin" [formGroup]="registerForm" autocomplete="off">
 
     <div class="input-row-container">
-      <div class="input-container">
-        <label for="firstName" class="input-label">Primer Nombre</label>
-        <input type="text" class="input-control" id="firstName" formControlName="firstName" (keyup.enter)="register()"/>
-      </div>
-      <div class="input-container">
-        <label for="secondName" class="input-label">Segundo Nombre</label>
-        <input type="text" class="input-control" id="secondName" formControlName="secondName" (keyup.enter)="register()"/>
-      </div>
+      <mat-form-field class="input-field" appearance="outline">
+        <mat-label>Primer Nombre</mat-label>
+        <input matInput type="text" formControlName="firstName" (keyup.enter)="register()"/>
+      </mat-form-field>
+      <mat-form-field class="input-field" appearance="outline">
+        <mat-label>Segundo Nombre</mat-label>
+        <input matInput type="text" formControlName="secondName" (keyup.enter)="register()"/>
+      </mat-form-field>
     </div>
 
     <div class="input-row-container">
-      <div class="input-container">
-        <label for="lastName" class="input-label">Primer Apellido</label>
-        <input type="text" class="input-control" id="lastName" formControlName="lastName" (keyup.enter)="register()"/>
-      </div>
-      <div class="input-container">
-        <label for="secondLastName" class="input-label">Segundo Apellido</label>
-        <input type="text" class="input-control" id="secondLastName" formControlName="secondLastName" (keyup.enter)="register()"/>
-      </div>
+      <mat-form-field class="input-field" appearance="outline">
+        <mat-label>Primer Apellido</mat-label>
+        <input matInput type="text" formControlName="lastName" (keyup.enter)="register()"/>
+      </mat-form-field>
+      <mat-form-field class="input-field" appearance="outline">
+        <mat-label>Segundo Apellido</mat-label>
+        <input matInput type="text" formControlName="secondLastName" (keyup.enter)="register()"/>
+      </mat-form-field>
     </div>
 
-    <div class="input-container">
-      <label for="age" class="input-label">Edad</label>
-      <input type="number" class="input-control" id="age" formControlName="age" (keyup.enter)="register()"/>
-    </div>
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="age" (keyup.enter)="register()"/>
+    </mat-form-field>
 
-    <div class="input-container">
-      <label for="email" class="input-label">Correo</label>
-      <input type="text" class="input-control" id="email" formControlName="email" (keyup.enter)="register()"/>
-    </div>
-    <div class="input-container">
-      <label for="password" class="input-label">Contraseña</label>
-      <div class="password-input">
-        <input class="input-control" [type]="showPass ? 'text' : 'password'" id="password" formControlName="password"
-               (keyup.enter)="register()"/>
-        <mat-icon class="icon-size" (click)="showPass = !showPass" [svgIcon]="showPass ? 'visibility-on' : 'visibility-off'">
-        </mat-icon>
-      </div>
-    </div>
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput type="text" maxlength="10" formControlName="phone" (keyup.enter)="register()"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput type="email" formControlName="email" (keyup.enter)="register()"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="showPass ? 'text' : 'password'" formControlName="password" (keyup.enter)="register()"/>
+      <mat-icon class="icon-size" (click)="showPass = !showPass" [svgIcon]="showPass ? 'visibility-on' : 'visibility-off'">
+      </mat-icon>
+    </mat-form-field>
 
     <div class="button-container">
-      <button type="submit" mat-button class="btn btn-primary" (click)="register()">
+      <button type="submit" mat-button class="btn-primary" (click)="register()">
         REGISTRARSE
       </button>
-      <button type="button" mat-button class="btn btn-secondary" (click)="goBack()">
+      <button type="button" mat-button class="btn-secondary" (click)="goBack()">
         VOLVER
       </button>
     </div>

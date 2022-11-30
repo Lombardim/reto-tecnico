@@ -11,11 +11,11 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'game-list',
+        path: 'lista-de-juegos',
         component: GameListComponent
       },
       {
-        path: 'game-preview/:id',
+        path: 'juego/:id',
         component: GamePreviewComponent
       },
       {
@@ -24,14 +24,14 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'game-list',
+        redirectTo: 'lista-de-juegos',
         pathMatch: 'full'
       }
     ]
   },
     {
       path: '**',
-      redirectTo: '/home/',
+      redirectTo: '/pantalla-principal/',
       pathMatch: 'full'
     }
   ];

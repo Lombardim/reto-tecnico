@@ -19,11 +19,11 @@
 
   <div class="filters-container">
     <form class="input-form" [formGroup]="filterForm" autocomplete="off">
-      <div class="filter-input-container">
-        <input type="text" class="input-control" id="filter" formControlName="filter" placeholder="Buscar..." (keyup.enter)="filter()"/>
-        <mat-icon class="icon-size" (click)="filter()" svgIcon="search">
-        </mat-icon>
-      </div>
+      <mat-form-field class="filter-input-container input-field" appearance="outline">
+        <mat-label>Filtrar por nombre</mat-label>
+        <input matInput type="text" formControlName="filter" (keyup.enter)="filter()"/>
+        <mat-icon class="filter-input-icon icon-size" (click)="filter()" svgIcon="search"></mat-icon>
+      </mat-form-field>
 
       <div class="filter-body">
         <div class="filter-body-header">

@@ -9,25 +9,21 @@
   justify-content: center;
   flex-direction: column;
   background-color: $raised-background;
-  width: 48%;
-  height: 74%;
-  border-radius: 50px;
-  box-shadow: 0 8px 10px 4px #00000019;
+  width: 55%;
+  height: 80%;
+  border-radius: 4rem;
+  box-shadow: 0 .5rem .625rem .25rem #00000019;
 
   .main-header-title {
     margin-bottom: 5rem;
   }
   .button-container {
     margin-top: 3rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     gap: 2rem;
-
-    .btn {
-        width: 70%;
-    }
   }
 }
 

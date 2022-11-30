@@ -111,7 +111,9 @@
     :has(> .filter-input-container) {
       width: 100%;
     }
-
+    .filter-input-icon {
+      right: 0 !important;
+    }
     .filter-body{
       display: flex;
       flex-direction: column;
