@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../shared/services/auth.service";
-import {UserInterface, UserType} from "../../../shared/types/user.interface";
+import {CreateUserInterface, UserInterface, UserType} from "../../../shared/types/user.interface";
 import {ToastrService} from "ngx-toastr";
 import {emailPattern, numberPattern} from "../../../shared/config/custom-validators";
 
@@ -72,8 +72,7 @@ export class RegisterComponent {
       return;
     }
     try {
-      const user: UserInterface = {
-        id: this._authService.userId,
+      const user: CreateUserInterface = {
         userType: UserType.client,
         firstName: this.registerForm.get('firstName')?.value ?? '',
         secondName: this.registerForm.get('secondName')?.value ?? '',
@@ -88,8 +87,7 @@ export class RegisterComponent {
       this.alertService.success('Cuenta registrada exitosamente', 'REGISTRO');
       await this.goBack();
     }catch (e) {
-      console.error(e);
-      this.alertService.error('Ocurrió un error: ' + e, 'REGISTRO');
+      this.alertService.error('' + e, 'REGISTRO');
     }
   }
 

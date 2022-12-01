@@ -18,10 +18,10 @@
         {{column.value}}
       </th>
       <td mat-cell *matCellDef="let element; let j = index">
-        <button type="button" [class]="!isAdmin ? 'btn-primary-small' : element['remainingTime'] !== '0' ? 'btn-disabled-small' : 'btn-primary-small'"
-          mat-button (click)="onAction(element, j, isAdmin ? element['remainingTime'] === '0' : true)">
-          {{isAdmin ? 'RECLAMAR' : 'RECIBO'}}
-        </button>
+        <mat-icon [class]="isAdmin && element['remainingTime'] !== '0' ? 'disabled-icon' : ''"
+          [matTooltip]="isAdmin ? 'Reclamar juego' : 'Obtener recibo'"
+          (click)="onAction(element, j, isAdmin ? element['remainingTime'] === '0' : true)"
+          class="table-icon-size" [svgIcon]="isAdmin ? 'claim' : 'receipt'"></mat-icon>
       </td>
     </ng-container>
     <th mat-header-cell *matHeaderCellDef> No. </th>

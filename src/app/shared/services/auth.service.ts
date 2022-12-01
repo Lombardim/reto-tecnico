@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {UserService} from "./user.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environment/environment";
-import {UserInterface} from "../types/user.interface";
+import {CreateUserInterface, UserInterface} from "../types/user.interface";
 import {ToastrService} from "ngx-toastr";
 import {lastValueFrom} from "rxjs";
 
@@ -32,7 +32,7 @@ export class AuthService {
     }
   }
 
-  public async addUser(user: UserInterface) {
+  public async addUser(user: CreateUserInterface) {
     if(this.userService.registeredEmails.includes(user.email)) {
       console.error('El email ya está registrado en el sistema');
       this.alertService.error('El email ya está registrado en el sistema', 'REGISTRO');
@@ -45,23 +45,27 @@ export class AuthService {
       );
     }catch (e) {
       console.error(e);
-      this.alertService.error('Ocurrió un error creando el usuario', 'REGISTRO');
+      throw 'Ocurrió un error registrando el usuario';
     }
   }
 
   async login(email: string, password: string) {
-    const users = localStorage.getItem('users');
-    if(users) {
-      const decodedUsers: UserInterface[] = JSON.parse(users);
-      const loggedUser = decodedUsers.find(user => user.email === email && user.password === password);
-      if(!loggedUser) {
-        throw 'El correo o contraseña son incorrectos';
+    try {
+      const users = await this.userService.getAllUsers();
+      if(users.length > 0) {
+        const loggedUser = users.find(user => user.email === email && user.password === password);
+        if(!loggedUser) {
+          throw 'El correo o contraseña son incorrectos';
+        }else{
+          localStorage.setItem('userId', String(loggedUser.id));
+          this.userService.setLogged(loggedUser);
+        }
       }else{
-        localStorage.setItem('userId', this.userService.userId.toString());
-        this.userService.setLogged(loggedUser);
+        throw 'No hay usuarios registrados en el sistema';
       }
-    }else{
-      throw 'No hay usuarios registrados en el sistema';
+    }catch (e) {
+      console.error(e);
+      throw 'Ocurrió un error iniciando sesión: ' + e;
     }
   }
 

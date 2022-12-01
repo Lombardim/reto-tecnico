@@ -4,6 +4,32 @@
 @import '../../../../assets/scss/fonts';
 @import '../../../../assets/scss/input';
 
+.bigger-list-body {
+  grid-template-columns: 4.75fr .25fr !important;
+}
+
+.expand-container{
+  align-self: center;
+  justify-self: center;
+
+  .rotated {
+    transform: rotate(180deg);
+  }
+  .filter-expand-icon {
+    color: $secondary-text;
+    background: #F37E5114;
+    border: .1rem solid $secondary-text;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+}
+
 .game-list-body {
   display: grid;
   height: 95%;
@@ -20,6 +46,7 @@
     border-radius: 20px;
 
     .games-list {
+      position: relative;
       margin-top: 1rem;
       padding: 0 1rem;
       display: grid;
@@ -60,15 +87,17 @@
 
       .game-container {
         display: flex;
+        overflow: hidden;
         position: relative;
-        background-color: $disabled-color;
         border-radius: 20px;
         width: 100%;
         max-width: 300px;
         height: 360px;
+        transition: .25s;
 
         .game-image {
           z-index: 0;
+          background-color: $disabled-color;
           border-radius: 20px;
           position: absolute;
           top: 0;
@@ -77,9 +106,10 @@
           height: 100%;
         }
         .game-information {
-          height: 0;
-          opacity: 0;
+          position: absolute;
           width: 100%;
+          height: 100%;
+          opacity: 0;
           border-radius: 20px;
           background-color: #00000055;
           display: flex;
@@ -87,22 +117,31 @@
           padding: 1rem;
           gap: .5rem;
           z-index: 1;
-          transition: .5s;
+          transition: .25s;
+          right: 100%;
 
           * {
             color: white !important;
           }
         }
         &:hover {
+          transform: scale(1.05);
+
           .game-information{
-            height: 100%;
+            right: 0;
             opacity: 1;
           }
         }
       }
     }
   }
-
+  .loading-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
   .filters-container{
     .filter-input-container {
       position: relative;

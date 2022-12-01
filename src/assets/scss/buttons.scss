@@ -43,6 +43,11 @@
   @extend .basic-button;
   color: $primary-text !important;
   border-color: $primary-text !important;
+
+  &:hover {
+    color: white !important;
+    background: $primary-text !important;
+  }
 }
 
 .btn-secondary {
@@ -51,4 +56,15 @@
   color: #FFFFFF !important;
   background-color: $secondary-text;
   border-color: $secondary-text !important;
+}
+
+.btn-secondary-outlined {
+  @extend .basic-button;
+  color: $secondary-text !important;
+  border-color: $secondary-text !important;
+
+  &:hover {
+    color: white !important;
+    background: $secondary-text !important;
+  }
 }

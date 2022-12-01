@@ -43,6 +43,18 @@ export class AppComponent implements OnInit {
       path: '../assets/svg/menu.svg'
     },
     {
+      name: 'receipt',
+      path: '../assets/svg/receipt.svg'
+    },
+    {
+      name: 'claim',
+      path: '../assets/svg/claim.svg'
+    },
+    {
+      name: 'expand',
+      path: '../assets/svg/expand.svg'
+    },
+    {
       name: 'log-out',
       path: '../assets/svg/log-out.svg'
     }

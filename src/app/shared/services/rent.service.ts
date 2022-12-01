@@ -60,22 +60,24 @@ export class RentService {
       console.log(response);
     }catch (e) {
       console.error(e);
+      throw 'Ocurrió un error reclamando el juego';
     }
   }
 
   async rentAGame(gameId: number, userId: number, days: number) {
     try {
       const date = new Date();
-      date.setDate(date.getDate() + days)
+      const untilDate = date.getTime() + (days * 86400000)
       await lastValueFrom(
         this.http.post(`${this._url}/rent`, {
-          "rentedUntil": date.toISOString(),
+          "rentedUntil": (new Date(untilDate)).toISOString(),
           "userId": userId,
           "gameId": gameId
         })
       );
     }catch (e) {
       console.error(e);
+      throw 'Ocurrió un error rentando un juego';
     }
   }
 }

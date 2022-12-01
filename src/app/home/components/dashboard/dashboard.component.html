@@ -1,37 +1,78 @@
 <div class="dashboard-container">
-  <div class="dashboard-header">
-    <h1 class="main-header-title">{{ dashboardTitle }}</h1>
-    <button type="button" *ngIf="isAdmin" mat-button class="btn btn-primary{{previewRentedGames ? '' : '-outlined'}}" (click)="actionButton()">
-      {{ buttonTitle }}
-    </button>
-  </div>
-  <div class="dashboard-body" [class]="isAdmin && !previewRentedGames ? 'admin-view' : ''">
-    <div *ngIf="isAdmin && !previewRentedGames" class="extra-information-container">
-      <span class="big-sized-text">Cliente más frecuente: <span class="regular-sized-text"> {{ mostFrequentClient }} </span></span>
-      <span class="big-sized-text">Juego más rentado: <span class="regular-sized-text"> {{ mostRentedGame }} </span></span>
-    </div>
-    <div class="table-container" *ngIf="displayableData.length === 0; else table">
-      <span *ngIf="loading; else emptyTable" class="secondary-title">
-        Cargando...
-      </span>
-
-      <ng-template #emptyTable>
-        <span class="secondary-title">
-          No hay datos para mostrar
+  <div *ngIf="isAdmin; else clientView">
+    <mat-tab-group>
+      <mat-tab label="INFORMACIÓN JUEGO MENOS RENTADO POR RANGO DE EDAD">
+        <div class="dashboard-body">
+          <div class="extra-information-container">
+            <span class="big-sized-text">Cliente más frecuente: <span class="regular-sized-text"> {{ mostFrequentClient }} </span></span>
+            <span class="big-sized-text">Juego más rentado: <span class="regular-sized-text"> {{ mostRentedGame }} </span></span>
+          </div>
+          <div class="table-container" *ngIf="adminAgeRangeDisplayableData.length === 0; else table">
+        <span *ngIf="loading; else emptyTable" class="secondary-title">
+          Cargando...
         </span>
+
+            <ng-template #emptyTable>
+          <span class="secondary-title">
+            No hay datos para mostrar
+          </span>
+            </ng-template>
+          </div>
+          <ng-template #table>
+            <app-table (action)="claimGame($event)" [data]="adminAgeRangeDisplayableData" [hidePaginator]="true"
+                       [displayedColumns]="adminAgeRangeDisplayedColumns" [isAdmin]="isAdmin" [hidePageSize]="false">
+            </app-table>
+          </ng-template>
+          <div class="dashboard-buttons-container">
+            <button type="button" mat-button class="btn btn-secondary" (click)="checkTodaySoldItems()">
+              CONSULTAR VENTAS DEL DÍA
+            </button>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="INFORMACIÓN JUEGOS RENTADOS ACTUALMENTE">
+        <div class="dashboard-body">
+          <div class="extra-information-container">
+            <span class="big-sized-text">Cliente más frecuente: <span class="regular-sized-text"> {{ mostFrequentClient }} </span></span>
+            <span class="big-sized-text">Juego más rentade: <span class="regular-sized-text"> {{ mostRentedGame }} </span></span>
+          </div>
+          <div class="table-container" *ngIf="adminRentedGamesDisplayableData.length === 0; else tableRented">
+            <span *ngIf="loading; else emptyTableRented" class="secondary-title">
+              Cargando...
+            </span>
+
+            <ng-template #emptyTableRented>
+              <span class="secondary-title">
+                No hay datos para mostrar
+              </span>
+            </ng-template>
+          </div>
+          <ng-template #tableRented>
+            <app-table (action)="claimGame($event)" [data]="adminRentedGamesDisplayableData" [hidePaginator]="false"
+                       [displayedColumns]="adminRentedGamesDisplayedColumns" [isAdmin]="isAdmin" [hidePageSize]="false">
+            </app-table>
+          </ng-template>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #clientView>
+    <div class="dashboard-body">
+      <div class="table-container" *ngIf="userDisplayableData.length === 0; else tableClient">
+            <span *ngIf="loading; else emptyTableClient" class="secondary-title">
+              Cargando...
+            </span>
+
+        <ng-template #emptyTableClient>
+              <span class="secondary-title">
+                No hay datos para mostrar
+              </span>
+        </ng-template>
+      </div>
+      <ng-template #tableClient>
+        <app-table (action)="claimGame($event)" [data]="userDisplayableData" [hidePaginator]="false"
+         [displayedColumns]="userDisplayedColumns" [isAdmin]="isAdmin" [hidePageSize]="false">
+        </app-table>
       </ng-template>
     </div>
-    <ng-template #table>
-      <app-table (action)="claimGame($event)" [data]="displayableData" [hidePaginator]="false"
-         [displayedColumns]="isAdmin ?
-            previewRentedGames ? adminRentedGamesDisplayedColumns : adminAgeRangeDisplayedColumns
-            : userDisplayedColumns" [isAdmin]="isAdmin" [hidePageSize]="false">
-      </app-table>
-    </ng-template>
-    <div *ngIf="isAdmin && !previewRentedGames" class="dashboard-buttons-container">
-      <button type="button" mat-button class="btn btn-primary" (click)="checkTodaySoldItems()">
-        CONSULTAR VENTAS DEL DÍA
-      </button>
-    </div>
-  </div>
-</div>
+</ng-template>

@@ -7,7 +7,8 @@ import {numberPattern} from "../../config/custom-validators";
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  styleUrls: ['./dialog.component.scss'],
+  host: {'class': 'max-size flex-center direction-column'}
 })
 export class DialogComponent implements OnInit {
   public dialogForm: FormGroup = new FormGroup({
@@ -27,7 +28,7 @@ export class DialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     if(this.data.dialogType === 'info') {
+     if(this.data.dialogType === 'info' || this.data.dialogType === 'receipt') {
        this.multipleDescriptions = this.data.description.split('\n');
      }
   }

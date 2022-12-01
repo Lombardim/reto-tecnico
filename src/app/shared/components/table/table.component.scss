@@ -4,8 +4,61 @@
   text-align: center;
 }
 
-
 .header-title {
   display: flex;
   justify-content: center;
+}
+
+.table-icon-size {
+  width: 2rem;
+  height: 2rem;
+  color: $secondary-text;
+  cursor: pointer;
+}
+
+.disabled-icon {
+  color: $disabled-text;
+  cursor: not-allowed;
+}
+
+:host ::ng-deep {
+  .mat-mdc-header-cell {
+    text-align: center;
+  }
+
+  .mat-column-actions {
+
+  }
+  .mat-mdc-table, .mat-mdc-paginator {
+    background: transparent;
+  }
+  .mat-mdc-paginator {
+    border: 1px solid $primary-text;
+
+    .-mdc-paginator-page-size-select {
+
+    }
+    .mat-mdc-paginator-page-size, .mat-mdc-paginator-range-label {
+      color: $secondary-text !important;
+      font-size: 1rem;
+    }
+    .mat-mdc-icon-button {
+      color: $secondary-text;
+      .mat-mdc-paginator-icon{
+        fill: currentColor;
+      }
+    }
+    .mat-mdc-icon-button:disabled {
+      color: $disabled-text;
+    }
+  }
+  .mat-mdc-table tbody, .mat-mdc-table tfoot, .mat-mdc-table thead, .mat-mdc-cell, .mat-mdc-footer-cell,
+  .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell {
+    border: 1px solid $primary-text;
+    border-bottom: 1px solid $primary-text !important;
+  }
+
+  .mat-mdc-cell {
+    text-align: center;
+  }
 }

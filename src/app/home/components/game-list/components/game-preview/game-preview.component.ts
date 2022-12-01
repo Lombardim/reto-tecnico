@@ -17,6 +17,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class GamePreviewComponent implements OnInit {
   private _gameId: number = 0;
+  public loading: boolean = true;
   public gameName: string = 'Nombre del juego';
   public year: string = 'Año';
   public gameDirector: string = 'Director';
@@ -28,18 +29,18 @@ export class GamePreviewComponent implements OnInit {
   public buttonTitle: string = 'ALQUILAR';
 
   constructor(
-    private _profileService: UserService,
+    private _userService: UserService,
     private _gameService: GameService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private _toastr: ToastrService,
+    private _alertService: ToastrService,
     private _rentService: RentService
   ) {
   }
 
   ngOnInit() {
-    this.buttonTitle = this._profileService.getLogged()?.userType === UserType.admin ? 'CAMBIAR PRECIO' : 'ALQUILAR';
+    this.buttonTitle = this._userService.getLogged()?.userType === UserType.admin ? 'CAMBIAR PRECIO' : 'ALQUILAR';
     this.retrieveGameData();
   }
 
@@ -58,6 +59,7 @@ export class GamePreviewComponent implements OnInit {
         this.gamePlatform = game.platform;
         this.gamePrice = game.price.toString();
       }
+      this.loading = false;
     }else{
       await this._router.navigateByUrl('/home/games-list');
     }
@@ -66,8 +68,8 @@ export class GamePreviewComponent implements OnInit {
   public async actionButton() {
     if(this.buttonTitle === 'ALQUILAR') {
       const dialogRef = this.dialog.open(DialogComponent, {
-        width: '500px',
-        height: '350px',
+        width: '540px',
+        height: '375px',
         data: {
           title: 'ALQUILAR JUEGO',
           placeholder: 'Número de días',
@@ -78,14 +80,18 @@ export class GamePreviewComponent implements OnInit {
       });
       let dialogResult: number | undefined = await lastValueFrom(dialogRef.afterClosed());
       if(dialogResult) {
-        await this._rentService.rentAGame(this._gameId, this._profileService.getLogged()!.id, dialogResult);
+        try {
+          await this._rentService.rentAGame(this._gameId, this._userService.getLogged()!.id, dialogResult);
+        }catch (e) {
+          this._alertService.error('' + e, 'RENTAR UN JUEGO');
+        }
       }else{
-        this._toastr.info('Se canceló la acción', 'ALQUILAR JUEGO');
+        this._alertService.info('Se canceló la acción', 'ALQUILAR JUEGO');
       }
     }else{
       const dialogRef = this.dialog.open(DialogComponent, {
-        width: '500px',
-        height: '350px',
+        width: '540px',
+        height: '375px',
         data: {
           title: 'CAMBIAR ALQUILER',
           placeholder: 'Precio del alquiler',
@@ -96,10 +102,14 @@ export class GamePreviewComponent implements OnInit {
       });
       let dialogResult: number | undefined = await lastValueFrom(dialogRef.afterClosed());
       if(dialogResult) {
-        await this._gameService.updateGamePriceById(this._gameId, dialogResult);
-        this.gamePrice = dialogResult.toString();
+        try {
+          await this._gameService.updateGamePriceById(this._gameId, dialogResult);
+          this.gamePrice = dialogResult.toString();
+        }catch (e) {
+          this._alertService.error('' + e, 'CAMBIAR PRECIO ALQUILER');
+        }
       }else{
-        this._toastr.info('Se canceló la acción', 'CAMBIAR PRECIO ALQUILER');
+        this._alertService.info('Se canceló la acción', 'CAMBIAR PRECIO ALQUILER');
       }
     }
   }

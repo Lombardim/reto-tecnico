@@ -24,7 +24,9 @@ import {SharedModule} from "./shared/shared.module";
     HttpClientModule,
     SharedModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    })
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: CustomMatPaginator}

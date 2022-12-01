@@ -39,12 +39,12 @@ export class GameService {
 
   public async updateGamePriceById(gameId: number, price: number) {
     try {
-      const response = await lastValueFrom(
+      await lastValueFrom(
         this.http.put(`${this._url}/game/price?id=${gameId}&price=${price}`, {})
       );
-      console.log(response);
     }catch (e) {
       console.error(e);
+      throw 'Ocurrió un error actualizando el precio del juego';
     }
   }
 

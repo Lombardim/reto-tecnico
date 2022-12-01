@@ -9,10 +9,10 @@
   width: 98%;
   border-radius: 20px;
   padding: 2rem 2.75rem;
-  grid-template-rows: max-content auto;
+  grid-template-rows: auto max-content;
   gap: .5rem;
 
-  .dashboard-header {
+  .dashboard-footer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -20,8 +20,9 @@
 
   .dashboard-body {
     display: grid;
+    height: 100%;
     gap: 1rem;
-    grid-template-rows: auto max-content;
+    grid-template-rows: max-content auto max-content;
 
     .extra-information-container {
       display: flex;
@@ -44,5 +45,18 @@
   }
   .admin-view {
     grid-template-rows: max-content auto max-content;
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-tab-body-wrapper{
+    height: 100%;
+  }
+  .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+  .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+    color: $secondary-text;
+  }
+  .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab__text-label, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+    color: $primary-text;
   }
 }

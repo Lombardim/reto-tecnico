@@ -1,3 +1,5 @@
+@import 'src/assets/scss/input';
+
 .dialog-buttons {
   display: flex;
   justify-content: flex-end;
@@ -15,5 +17,29 @@
   }
   .dialog-form {
     width: 100%;
+  }
+}
+
+::ng-deep {
+  .mat-mdc-dialog-container .mdc-dialog__title {
+    background: $primary-text;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+
+    .big-sized-text {
+      color: white;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  .mat-mdc-dialog-container .mdc-dialog__content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .mdc-dialog__actions {
+    padding: 0 1rem !important;
   }
 }

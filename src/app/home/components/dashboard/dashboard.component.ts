@@ -9,6 +9,7 @@ import {ToastrService} from "ngx-toastr";
 import {DialogComponent} from "../../../shared/components/dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Rent} from "../../../shared/types/rent.interface";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,8 +20,6 @@ import {Rent} from "../../../shared/types/rent.interface";
 export class DashboardComponent implements OnInit {
   isAdmin: boolean = true;
   previewRentedGames: boolean = false;
-  public dashboardTitle: string = 'Información General';
-  public buttonTitle: string = 'Ver juegos alquilados';
   public mostFrequentClient: string = 'Nombre de usuario';
   public mostRentedGame: string = 'Nombre del juego';
   public userDisplayedColumns: ColumnsInterface[] = [
@@ -50,8 +49,10 @@ export class DashboardComponent implements OnInit {
     {key: 'totalPayed', value: 'TOTAL PAGADO'},
     {key: 'actions', value: 'ACCIONES'}
   ];
-  displayableData: TableInterface[] = [];
-  loading: boolean = false;
+  adminRentedGamesDisplayableData: TableInterface[] = [];
+  adminAgeRangeDisplayableData: TableInterface[] = [];
+  userDisplayableData: TableInterface[] = [];
+  loading: boolean = true;
 
   constructor(
     private _userService: UserService,
@@ -69,7 +70,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private async retrieveDashboardData() {
-    this.loading = true;
     if(this.isAdmin) {
       const mostRentedGame = await this._gameService.mostRentedGame();
       this.mostRentedGame = mostRentedGame.length === 0 ? 'No hay información' : (mostRentedGame as unknown as GameInterface).name;
@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
       await this.actionButton(false);
     }else{
       const userRentedGames = await this._rentService.getAllRentsById(this._userService.userId);
-      this.displayableData = userRentedGames.map((rent) => {
+      this.userDisplayableData = userRentedGames.map((rent) => {
         const names: string[] = [];
         if(rent.rentedBy.firstName !== '')
           names.push(rent.rentedBy.firstName);
@@ -114,7 +114,7 @@ export class DashboardComponent implements OnInit {
           'game': rent.game.name,
           'rentedTime': `${Math.floor(rentedTime)}`,
           'remainingTime': `${remainingTime >= 0 ? Math.ceil(remainingTime) : 0}`,
-          'totalPayed': `$ ${rent.totalPayed},00`
+          'totalPayed': `$ ${rent.totalPayed * Math.floor(rentedTime)},00`
         };
       });
     }
@@ -151,12 +151,39 @@ export class DashboardComponent implements OnInit {
   async actionButton(update: boolean = true) {
     this.loading = true;
     if(update) this.previewRentedGames = !this.previewRentedGames;
-    this.displayableData = [];
+    this.adminRentedGamesDisplayableData = [];
+    this.adminAgeRangeDisplayableData = [];
+    if(this.isAdmin) {
+      try{
+        const firstRange = await this._gameService.mostRentedGameByRange(0, 9);
+        const secondRange = await this._gameService.mostRentedGameByRange(10, 19);
+        const thirdRange = await this._gameService.mostRentedGameByRange(20, 29);
+        const fourthRange = await this._gameService.mostRentedGameByRange(30, 39);
+        const fifthRange = await this._gameService.mostRentedGameByRange(40, 49);
+        const sixthRange = await this._gameService.mostRentedGameByRange(50, 59);
+        const seventhRange = await this._gameService.mostRentedGameByRange(60, 69);
+        const eighthRange = await this._gameService.mostRentedGameByRange(70, 79);
+        const ninthRange = await this._gameService.mostRentedGameByRange(80, 89);
+        const tenthRange = await this._gameService.mostRentedGameByRange(90, 99);
 
-    if(this.previewRentedGames) {
+        this.adminAgeRangeDisplayableData = [{
+          'firstRange': firstRange.length === 0 ? 'Sin datos' : (firstRange as unknown as GameInterface).name,
+          'secondRange': secondRange.length === 0 ? 'Sin datos' : (secondRange as unknown as GameInterface).name,
+          'thirdRange': thirdRange.length === 0 ? 'Sin datos' : (thirdRange as unknown as GameInterface).name,
+          'fourthRange': fourthRange.length === 0 ? 'Sin datos' : (fourthRange as unknown as GameInterface).name,
+          'fifthRange': fifthRange.length === 0 ? 'Sin datos' : (fifthRange as unknown as GameInterface).name,
+          'sixthRange': sixthRange.length === 0 ? 'Sin datos' : (sixthRange as unknown as GameInterface).name,
+          'seventhRange': seventhRange.length === 0 ? 'Sin datos' : (seventhRange as unknown as GameInterface).name,
+          'eighthRange': eighthRange.length === 0 ? 'Sin datos' : (eighthRange as unknown as GameInterface).name,
+          'ninthRange': ninthRange.length === 0 ? 'Sin datos' : (ninthRange as unknown as GameInterface).name,
+          'tenthRange': tenthRange.length === 0 ? 'Sin datos' : (tenthRange as unknown as GameInterface).name
+        }];
+      }catch (e) {
+        this._toastr.error('' + e, 'TABLA DE RANGO DE EDADES');
+      }
       try{
         const rentedGames = await this._rentService.getAllRent();
-        this.displayableData = rentedGames.map((rent) => {
+        this.adminRentedGamesDisplayableData = rentedGames.map((rent) => {
           const names: string[] = [];
           if(rent.rentedBy.firstName !== '')
             names.push(rent.rentedBy.firstName);
@@ -186,35 +213,7 @@ export class DashboardComponent implements OnInit {
           };
         });
       }catch (e) {
-        this._toastr.error('' + e, 'ALQUILAR JUEGO');
-      }
-    }else{
-      try{
-        const firstRange = await this._gameService.mostRentedGameByRange(0, 9);
-        const secondRange = await this._gameService.mostRentedGameByRange(10, 19);
-        const thirdRange = await this._gameService.mostRentedGameByRange(20, 29);
-        const fourthRange = await this._gameService.mostRentedGameByRange(30, 39);
-        const fifthRange = await this._gameService.mostRentedGameByRange(40, 49);
-        const sixthRange = await this._gameService.mostRentedGameByRange(50, 59);
-        const seventhRange = await this._gameService.mostRentedGameByRange(60, 69);
-        const eighthRange = await this._gameService.mostRentedGameByRange(70, 79);
-        const ninthRange = await this._gameService.mostRentedGameByRange(80, 89);
-        const tenthRange = await this._gameService.mostRentedGameByRange(90, 99);
-
-        this.displayableData = [{
-          'firstRange': firstRange.length === 0 ? 'Sin datos' : (firstRange as unknown as GameInterface).name,
-          'secondRange': secondRange.length === 0 ? 'Sin datos' : (secondRange as unknown as GameInterface).name,
-          'thirdRange': thirdRange.length === 0 ? 'Sin datos' : (thirdRange as unknown as GameInterface).name,
-          'fourthRange': fourthRange.length === 0 ? 'Sin datos' : (fourthRange as unknown as GameInterface).name,
-          'fifthRange': fifthRange.length === 0 ? 'Sin datos' : (fifthRange as unknown as GameInterface).name,
-          'sixthRange': sixthRange.length === 0 ? 'Sin datos' : (sixthRange as unknown as GameInterface).name,
-          'seventhRange': seventhRange.length === 0 ? 'Sin datos' : (seventhRange as unknown as GameInterface).name,
-          'eighthRange': eighthRange.length === 0 ? 'Sin datos' : (eighthRange as unknown as GameInterface).name,
-          'ninthRange': ninthRange.length === 0 ? 'Sin datos' : (ninthRange as unknown as GameInterface).name,
-          'tenthRange': tenthRange.length === 0 ? 'Sin datos' : (tenthRange as unknown as GameInterface).name
-        }];
-      }catch (e) {
-        this._toastr.error('' + e, 'ALQUILAR JUEGO');
+        this._toastr.error('' + e, 'TABLA DE RENTAS ACTUALES');
       }
     }
     this.loading = false;
@@ -236,25 +235,24 @@ export class DashboardComponent implements OnInit {
           const rentedUntil: Date = new Date(rent.rentedUntil);
           let differenceMilliseconds: number = rentedUntil.getTime() - createdAt.getTime();
           let rentedTime: number = Math.floor(differenceMilliseconds / (1000 * 3600 * 24));
-
-          console.log(rent);
           this.dialog.open(DialogComponent, {
-            width: '500px',
-            height: '350px',
+            width: '600px',
+            height: '400px',
             data: {
               title: 'PRUEBA DE COMPRA',
               placeholder: '',
               description: `
                 Juego alquilado: ${rent.game.name}
+                \nDía de inicio del alquiler: ${moment(createdAt).format('dd/MM/YYYY - HH:mm:ss')}
                 \nDías de alquiler: ${rentedTime} día${rentedTime === 1 ? '' : 's'}
-                \nTotal pagado: $ ${rent.totalPayed},00`,
+                \nTotal pagado: $ ${rent.totalPayed * Math.floor(rentedTime)},00`,
               startValue: -1,
-              dialogType: 'info'
+              dialogType: 'receipt'
             }
           });
         }catch (e) {
           console.error(e);
-          this._toastr.error('Ocurrió un error al reclamar el juego', 'RECLAMAR JUEGO ALQUILADO');
+          this._toastr.error('Ocurrió un error obteniendo la información del alquiler', 'RECIBO ALQUILER');
         }
       }
     }

@@ -6,16 +6,16 @@
     <div class="dialog-content">
       <span class="regular-sized-text dialog-description">{{ data.description }}</span>
       <form class="input-form dialog-form" [formGroup]="dialogForm" autocomplete="off">
-        <div class="input-container">
-          <label for="dialogMessage" class="input-label">{{ data.placeholder }}</label>
-          <input type="number" autocomplete="off" class="input-control" id="dialogMessage" formControlName="dialogField" (keyup.enter)="submit()"/>
-        </div>
+        <mat-form-field class="filter-input-container input-field" appearance="outline">
+          <mat-label>{{ data.placeholder }}</mat-label>
+          <input matInput type="text" formControlName="dialogField" (keyup.enter)="submit()"/>
+        </mat-form-field>
       </form>
     </div>
   </div>
   <div mat-dialog-actions class="dialog-buttons">
-    <button class="btn-secondary" (click)="close()">CANCELAR</button>
-    <button class="btn-primary" (click)="submit()" cdkFocusInitial> CONTINUAR </button>
+    <button class="btn-secondary-outlined" (click)="close()">CANCELAR</button>
+    <button class="btn-primary-outlined" (click)="submit()" cdkFocusInitial> CONTINUAR </button>
   </div>
 </ng-container>
 <ng-container *ngIf="data.dialogType === 'info'">
@@ -29,6 +29,17 @@
     </div>
   </div>
   <div mat-dialog-actions class="dialog-buttons">
-    <button class="btn-primary" (click)="submit()" cdkFocusInitial> ENTENDIDO </button>
+    <button class="btn-primary-outlined" (click)="submit()" cdkFocusInitial> ENTENDIDO </button>
+  </div>
+</ng-container>
+<ng-container *ngIf="data.dialogType === 'receipt'">
+  <div mat-dialog-title>
+    <h1 class="big-sized-text"> {{ data.title }} </h1>
+  </div>
+  <div mat-dialog-content>
+    <div class="dialog-content">
+      <span *ngFor="let description of multipleDescriptions"
+        class="medium-sized-text dialog-description">{{ description }}</span>
+    </div>
   </div>
 </ng-container>

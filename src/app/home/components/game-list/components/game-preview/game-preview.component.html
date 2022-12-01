@@ -1,30 +1,35 @@
-<div class="game-preview-container">
-  <div class="game-header">
-    <h1 class="main-header-title">{{ gameName }}</h1>
-    <h4 class="small-header-title"> {{ year }} </h4>
-  </div>
-  <div class="game-body-container">
-    <div class="game-info-container">
-      <div class="game-picture">
-        <img class="game-image-body" [src]="gameImage" alt="game image">
-      </div>
-      <div class="game-information">
-        <span class="regular-sized-text">
-          {{ 'Director: ' + gameDirector }}
-        </span>
-        <span class="regular-sized-text">
-          {{ 'Protagonista(s): ' + gameMainCharacters }}
-        </span>
-        <span class="regular-sized-text">
-          {{ 'Productor: ' + gameProducer }}
-        </span>
-        <span class="regular-sized-text">
-          {{ 'Plataformas: ' + gamePlatform }}
-        </span>
-        <span class="regular-sized-text">
-          {{ 'Precio alquiler: $ ' + gamePrice  + ',00'}}
-        </span>
-      </div>
+<div class="loading-body" *ngIf="loading else gameData">
+  <span class="secondary-title">Cargando...</span>
+</div>
+<ng-template #gameData>
+  <div class="game-preview-container">
+    <div class="game-header">
+      <h1 class="main-header-title">{{ gameName }}</h1>
+      <h4 class="small-header-title"> {{ year }} </h4>
+    </div>
+    <div class="game-body-container">
+        <div class="game-info-container">
+          <div class="game-picture">
+            <img class="game-image-body" [src]="gameImage" alt="game image">
+          </div>
+          <div class="game-information">
+            <span class="regular-sized-text">
+              {{ 'Director: ' + gameDirector }}
+            </span>
+            <span class="regular-sized-text">
+              {{ 'Protagonista(s): ' + gameMainCharacters }}
+            </span>
+            <span class="regular-sized-text">
+              {{ 'Productor: ' + gameProducer }}
+            </span>
+            <span class="regular-sized-text">
+              {{ 'Plataformas: ' + gamePlatform }}
+            </span>
+            <span class="regular-sized-text">
+              {{ 'Precio alquiler: $ ' + gamePrice  + ',00'}}
+            </span>
+          </div>
+        </div>
     </div>
     <div class="button-container">
       <button type="button" mat-button class="btn btn-primary" (click)="actionButton()">
@@ -32,4 +37,4 @@
       </button>
     </div>
   </div>
-</div>
+</ng-template>
